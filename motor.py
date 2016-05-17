@@ -1,38 +1,57 @@
 // 모터 작동 테스트
-from raspirobotboard import *
-import pygame
-import sys
-from pygame.locals import *
 
-rr = RaspiRobot()
+import RPi.GPIO as gpio
+import time
 
-pygame.init()
-screen = pygame.display.set_mode((640, 480))
+FRONT_DIR = 25 #IC1A
+FRONT_GO = 10 #IC1,2EN
 
-pygame.display.set_caption('RaspiRobot')
-pygame.mouse.set_visible(0)
-while True:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            sys.exit()
-        if event.type == KEYDOWN:
-            if event.key == K_UP:
-                rr.forward()
-                rr.set_led1(True)
-                rr.set_led2(True)
-            elif event.key == K_DOWN:
-                rr.set_led1(True)
-                rr.set_led2(True)
-                rr.reverse()
-            elif event.key == K_RIGHT:
-                rr.set_led1(False)
-                rr.set_led2(True)
-                rr.right()
-            elif event.key == K_LEFT:
-                rr.set_led1(True)
-                rr.set_led2(False)
-                rr.left()
-            elif event.key == K_SPACE:
-                rr.stop()
-                rr.set_led1(False)
-                rr.set_led2(False)
+DRIVE_GO = 17 #IC3A
+DRIVE_DIR = 4 #IC3,4EN
+
+def right():
+    gpio.setmode(gpio.BCM)
+    gpio.output(DRIVE_GO, gpio.HIGH)
+    gpio.output(DRIVE_DIR, gpio.HIGH)
+def left():
+    gpio.setmode(gpio.BCM)
+    gpio.output(DRIVE_GO, gpio.HIGH)
+    gpio.output(DRIVE_DIR, gpio.LOW)
+def backward():
+    gpio.setmode(gpio.BCM)
+    gpio.output(FRONT_DIR, gpio.HIGH)
+    gpio.output(FRONT_GO, gpio.HIGH)
+def forward():
+    gpio.setmode(gpio.BCM)
+    gpio.output(FRONT_DIR, gpio.LOW)
+    gpio.output(FRONT_GO, gpio.HIGH)
+def stop():
+    gpio.setmode(gpio.BCM)
+    gpio.output(FRONT_GO, gpio.LOW)
+    gpio.output(FRONT_DIR, gpio.LOW)
+    gpio.output(DRIVE_GO, gpio.LOW)
+    gpio.output(DRIVE_DIR, gpio.LOW)
+
+def initMotors():
+    gpio.setwarnings(False)
+    gpio.setmode( gpio.BCM )
+    gpio.setup(FRONT_GO, gpio.OUT)
+    gpio.setup(FRONT_DIR, gpio.OUT)
+    gpio.setup(DRIVE_GO, gpio.OUT)
+    gpio.setup(DRIVE_DIR, gpio.OUT)
+    gpio.output(FRONT_GO, gpio.LOW)
+    gpio.output(FRONT_DIR, gpio.LOW)
+    gpio.output(DRIVE_GO, gpio.LOW)
+    gpio.output(DRIVE_DIR, gpio.LOW)
+
+initMotors()
+forward()
+time.sleep(2)
+backward()
+time.sleep(2)
+left()
+time.sleep(2)
+right()
+time.sleep(2)
+stop()
+
