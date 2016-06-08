@@ -126,8 +126,8 @@ void motorA_Reverse()
 //모터A Stop, 모터B 정회전  좌회전                                                  
 void motorB_Rotation()
 {
-    digitalWrite(IN1,LOW);
-    digitalWrite(IN2,LOW);
+ //   digitalWrite(IN1,LOW);
+ //   digitalWrite(IN2,LOW);
     digitalWrite(IN3,HIGH);
     digitalWrite(IN4,LOW);
 }
@@ -135,8 +135,8 @@ void motorB_Rotation()
 //모터A Stop, 모터B 역회전 우회전
 void motorB_Reverse()
 {
-    digitalWrite(IN1,LOW);
-    digitalWrite(IN2,LOW);
+ //   digitalWrite(IN1,LOW);
+ //   digitalWrite(IN2,LOW);
     digitalWrite(IN3,LOW);
     digitalWrite(IN4,HIGH);
 }
