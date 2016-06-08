@@ -26,9 +26,10 @@ if __name__ == '__main__':
         cdst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
         if True: # HoughLinesP
           lines = cv2.HoughLinesP(dst, 1, math.pi/180.0, 40, np.array([]), 50, 10)
-                    a,b,c = lines.shape
+          a,b,c = lines.shape
           for i in range(a):
-            cv2.line(cdst, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, $
+            cv2.line(cdst, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 2, 0, 255), 3, cv2.LINE_AA)
+
         else:    # HoughLines
           lines = cv2.HoughLines(dst, 1, math.pi/180.0, 50, np.array([]), 0, 0)
           a,b,c = lines.shape
