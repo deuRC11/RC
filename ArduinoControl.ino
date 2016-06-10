@@ -10,21 +10,23 @@ int IN3=5;
 int IN4=4;
 
 char blue; //블루투스 가져오는값
+char inDat;//블루투스 가져온값을 넣는 변수
+char outDat;
 
 void setup()  
 {
   Serial.begin(115200);
   BT.begin(115200);//블루투스연결
-  pinMode(IN1,OUTPUT);
-  pinMode(IN2,OUTPUT);
-  pinMode(IN3,OUTPUT);
-  pinMode(IN4,OUTPUT);
+  pinMode(IN1,OUTPUT); //뒷바퀴모터
+  pinMode(IN2,OUTPUT); //뒷바퀴모터
+  pinMode(IN3,OUTPUT); //앞바퀴모터
+  pinMode(IN4,OUTPUT); //앞바퀴모터
+  pinMode(8,OUTPUT); //뒷바퀴모터제어
+  pinMode(9,OUTPUT); //앞바퀴모터제어
 }
 
 void loop()
 {
-  char inDat;
-  char outDat;
   
   if (BT.available())
   {
@@ -83,6 +85,7 @@ void loop()
     }
 
     delay(100);
+    
 }
 
 //모터A,B Stop 정지
@@ -102,6 +105,8 @@ void motorA_Rotation()
     digitalWrite(IN2,LOW);
     digitalWrite(IN3,LOW);
     digitalWrite(IN4,LOW);
+    analogWrite(8, 200); //0~255
+    analogWrite(9, 200); //0~255
 }
 //모터A 정회전, 모터B Stop 속도제어 test 
 void motorA_Rotation2()
@@ -110,8 +115,8 @@ void motorA_Rotation2()
     digitalWrite(IN2,LOW);
     digitalWrite(IN3,LOW);
     digitalWrite(IN4,LOW);
-    analogWrite(8, 20); //0~255
-    analogWrite(9, 20); //0~255
+    analogWrite(8, 100); //0~255
+    analogWrite(9, 100); //0~255
     Serial.println("speed");
 }
 //모터A 역회전, 모터B Stop 후진
@@ -121,22 +126,28 @@ void motorA_Reverse()
     digitalWrite(IN2,HIGH);
     digitalWrite(IN3,LOW);
     digitalWrite(IN4,LOW);
+    analogWrite(8, 200); //0~255
+    analogWrite(9, 200); //0~255
 }
  
 //모터A Stop, 모터B 정회전  좌회전                                                  
 void motorB_Rotation()
 {
- //   digitalWrite(IN1,LOW);
- //   digitalWrite(IN2,LOW);
-    digitalWrite(IN3,HIGH);
+  //  digitalWrite(IN1,LOW);
+  //  digitalWrite(IN2,LOW);
+    digitalWrite(IN3,HIGH);                   
     digitalWrite(IN4,LOW);
+    analogWrite(8, 200); //0~255
+    analogWrite(9, 200); //0~255
 }
  
 //모터A Stop, 모터B 역회전 우회전
 void motorB_Reverse()
 {
- //   digitalWrite(IN1,LOW);
- //   digitalWrite(IN2,LOW);
+  //  digitalWrite(IN1,LOW);
+  //  digitalWrite(IN2,LOW);
     digitalWrite(IN3,LOW);
     digitalWrite(IN4,HIGH);
+    analogWrite(8, 200); //0~255
+    analogWrite(9, 200); //0~255
 }
