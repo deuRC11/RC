@@ -22,10 +22,14 @@ def backward():
     gpio.setmode(gpio.BCM)
     gpio.output(FRONT_DIR, gpio.HIGH)
     gpio.output(FRONT_GO, gpio.LOW)
+    gpio.output(DRIVE_GO, gpio.LOW)
+    gpio.output(DRIVE_DIR, gpio.LOW)
 def forward():
     gpio.setmode(gpio.BCM)
     gpio.output(FRONT_DIR, gpio.LOW)
     gpio.output(FRONT_GO, gpio.HIGH)
+     gpio.output(DRIVE_GO, gpio.LOW)
+    gpio.output(DRIVE_DIR, gpio.LOW)
 def stop():
     gpio.setmode(gpio.BCM)
     gpio.output(FRONT_GO, gpio.LOW)
