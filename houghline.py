@@ -38,3 +38,4 @@ while (True):
  
 cam.release() # 메모리 과다 사용방지를 위한 함수 사용
 cv2.destroyAllWindows() # 모든 창을 종료함
+
